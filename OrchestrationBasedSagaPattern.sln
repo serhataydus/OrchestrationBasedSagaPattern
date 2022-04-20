@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7FC7BD35-7704-4318-93B1-A3163F37A391}"
+	ProjectSection(SolutionItems) = preProject
+		Description.txt = Description.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{EA11C858-B91B-42ED-8D5E-4BBA29FD0C46}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{E99555A9-427C-45D5-8B8E-D97F86461778}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Stock", "Stock", "{ED289945-2282-4F68-A83B-1BD52CE8641B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payment", "Payment", "{50915813-B2B3-4734-9642-7386FF6CC50F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{0F4CF610-641C-49EE-8AC3-EE68485FEA04}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A2FDAB0C-B5E0-4407-90E7-E60F5AF7372F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessageBroker", "MessageBroker", "{653C37CB-C6C8-472E-AE28-EFE602B1687D}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E99555A9-427C-45D5-8B8E-D97F86461778} = {0F4CF610-641C-49EE-8AC3-EE68485FEA04}
+		{ED289945-2282-4F68-A83B-1BD52CE8641B} = {0F4CF610-641C-49EE-8AC3-EE68485FEA04}
+		{50915813-B2B3-4734-9642-7386FF6CC50F} = {0F4CF610-641C-49EE-8AC3-EE68485FEA04}
+		{0F4CF610-641C-49EE-8AC3-EE68485FEA04} = {EA11C858-B91B-42ED-8D5E-4BBA29FD0C46}
+		{A2FDAB0C-B5E0-4407-90E7-E60F5AF7372F} = {EA11C858-B91B-42ED-8D5E-4BBA29FD0C46}
+		{653C37CB-C6C8-472E-AE28-EFE602B1687D} = {A2FDAB0C-B5E0-4407-90E7-E60F5AF7372F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AD1A231-2134-4C1F-A0B2-D17AEF23C980}
+	EndGlobalSection
+EndGlobal
