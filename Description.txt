@@ -1,0 +1,40 @@
+﻿Kullanılan Yapılar
+
+Saga
+Event Sourcing
+CQRS
+Retry
+Circuit Breaker
+API Composition
+RabbitMq
+MassTransit
+
+
+Order Status Enum : Suspend - Complete - Fail (reason)
+
+Saga State Machine :
+	Events :
+		- Initial (default begin Automatontmous library)
+		- OrderCreated
+		- StockReserved
+		- StockNotReserved
+		- PaymentCompleted
+		- PaymentFailed
+		- Final (default end Automatontmous library)
+
+		                  Order Service
+						  		|
+								|
+								v
+		              Saga State Machine   
+		          /             |          \
+                 /              |           \
+				/               |            \
+			   /                |             \
+			  /			  	    |              \
+             v                  v               v
+	    Stock Service    Payment Service    X Service
+
+
+
+Worker service'ler ile ekstra işlerde yapılabilir. Örnek senaryo rabbitmq'ya istek geldikçe kuyruğu dinleyip resimleri optimize edebilir.
