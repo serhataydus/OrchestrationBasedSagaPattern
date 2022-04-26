@@ -1,5 +1,7 @@
 using MassTransit;
+using MessageBroker.Shared.Constants;
 using Microsoft.EntityFrameworkCore;
+using StockMicroservice.WebApi.Consumers;
 using StockMicroservice.WebApi.Data;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
@@ -14,13 +16,28 @@ builder.Services.AddDbContext<IStockDbContext, StockDbContext>(options =>
          options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")),
          ServiceLifetime.Transient);
 
-builder.Services.AddMassTransit(options =>
+builder.Services.AddMassTransit(x =>
 {
-    options.UsingRabbitMq((context, configuration) =>
+    x.AddConsumer<OrderCreatedEventConsumer>();
+
+    x.AddConsumer<StockRollBackMessageConsumer>();
+
+    x.UsingRabbitMq((context, cfg) =>
     {
-        configuration.Host(builder.Configuration.GetConnectionString("RabbitMq"));
+        cfg.Host(builder.Configuration.GetConnectionString("RabbitMQ"));
+
+        cfg.ReceiveEndpoint(RabbitMqConstants.StockOrderCreatedEventQueueName, e =>
+        {
+            e.ConfigureConsumer<OrderCreatedEventConsumer>(context);
+        });
+
+        cfg.ReceiveEndpoint(RabbitMqConstants.StockRollBackMessageQueueName, e =>
+        {
+            e.ConfigureConsumer<StockRollBackMessageConsumer>(context);
+        });
     });
 });
+
 
 builder.Services.AddMassTransitHostedService();
 

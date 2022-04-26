@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace OrderMicroservice.WebApi.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class OrderMicroserviceInitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,7 +19,7 @@ namespace OrderMicroservice.WebApi.Data.Migrations
                     CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     BuyerId = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<byte>(type: "smallint", nullable: false),
-                    FailMessage = table.Column<string>(type: "text", nullable: false),
+                    FailMessage = table.Column<string>(type: "text", nullable: true),
                     Address_Line = table.Column<string>(type: "text", nullable: false),
                     Address_Province = table.Column<string>(type: "text", nullable: false),
                     Address_District = table.Column<string>(type: "text", nullable: false)

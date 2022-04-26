@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace StockMicroservice.WebApi.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class StockMicroserviceInitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

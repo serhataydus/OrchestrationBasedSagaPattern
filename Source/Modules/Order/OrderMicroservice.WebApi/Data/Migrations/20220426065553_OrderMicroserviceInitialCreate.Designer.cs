@@ -12,8 +12,8 @@ using OrderMicroservice.WebApi.Data;
 namespace OrderMicroservice.WebApi.Data.Migrations
 {
     [DbContext(typeof(OrderDbContext))]
-    [Migration("20220417220420_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220426065553_OrderMicroserviceInitialCreate")]
+    partial class OrderMicroserviceInitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,6 @@ namespace OrderMicroservice.WebApi.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("FailMessage")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<byte>("Status")

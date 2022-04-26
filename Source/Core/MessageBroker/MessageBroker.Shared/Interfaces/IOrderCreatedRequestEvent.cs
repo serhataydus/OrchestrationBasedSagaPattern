@@ -5,9 +5,10 @@ namespace MessageBroker.Shared.Interfaces
 {
     public interface IOrderCreatedRequestEvent
     {
-        int OrderId { get; set; }
-        string BuyerId { get; set; }
-        PaymentMessage Payment { get; set; }
-        List<OrderItemMessage> OrderItems { get; set; }
+        public int OrderId { get; set; }
+        public string BuyerId { get; set; }
+        public List<OrderItemMessage> OrderItems { get; set; }
+
+        public PaymentMessage Payment { get; set; }
     }
 }

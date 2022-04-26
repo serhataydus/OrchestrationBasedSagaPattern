@@ -69,7 +69,7 @@ public class OrderController : ControllerBase
             OrderItems = orderCreate.OrderItems.Select(s => new OrderItemMessage { Count = s.Count, ProductId = s.ProductId }).ToList()
         };
 
-        ISendEndpoint? sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri($"queue:{RabbitMqConstant.OrderSagaQueueName}"));
+        ISendEndpoint? sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri($"queue:{RabbitMqConstants.OrderSagaQueueName}"));
         await sendEndpoint.Send<IOrderCreatedRequestEvent>(orderCreatedRequestEvent, cancellationToken);
 
         return Ok();

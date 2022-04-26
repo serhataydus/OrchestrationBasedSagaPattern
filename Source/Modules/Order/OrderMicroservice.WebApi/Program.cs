@@ -1,5 +1,7 @@
 using MassTransit;
+using MessageBroker.Shared.Constants;
 using Microsoft.EntityFrameworkCore;
+using OrderMicroservice.WebApi.Consumers;
 using OrderMicroservice.WebApi.Data;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
@@ -14,13 +16,25 @@ builder.Services.AddDbContext<IOrderDbContext, OrderDbContext>(options =>
          options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")),
          ServiceLifetime.Transient);
 
-builder.Services.AddMassTransit(options =>
+builder.Services.AddMassTransit(x =>
 {
-    options.UsingRabbitMq((context, configuration) =>
-    {
-        configuration.Host(builder.Configuration.GetConnectionString("RabbitMq"));
-    });
+    x.AddConsumer<OrderRequestCompletedEventConsumer>();
+    x.AddConsumer<OrderRequestFailedEventConsumer>();
 
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(builder.Configuration.GetConnectionString("RabbitMQ"));
+
+        cfg.ReceiveEndpoint(RabbitMqConstants.OrderRequestCompletedEventtQueueName, x =>
+        {
+            x.ConfigureConsumer<OrderRequestCompletedEventConsumer>(context);
+        });
+
+        cfg.ReceiveEndpoint(RabbitMqConstants.OrderRequestFailedEventtQueueName, x =>
+        {
+            x.ConfigureConsumer<OrderRequestFailedEventConsumer>(context);
+        });
+    });
 });
 
 builder.Services.AddMassTransitHostedService();

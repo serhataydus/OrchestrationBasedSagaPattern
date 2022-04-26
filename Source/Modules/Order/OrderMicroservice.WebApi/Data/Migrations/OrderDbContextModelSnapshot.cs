@@ -38,7 +38,6 @@ namespace OrderMicroservice.WebApi.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("FailMessage")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<byte>("Status")

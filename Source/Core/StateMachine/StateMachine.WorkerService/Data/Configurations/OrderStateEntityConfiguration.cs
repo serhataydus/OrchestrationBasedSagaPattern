@@ -1,4 +1,4 @@
-﻿using MassTransit;
+﻿using MassTransit.EntityFrameworkCoreIntegration.Mappings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StateMachine.WorkerService.Data.Enities;

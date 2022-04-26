@@ -4,7 +4,7 @@
     "OrderMicroservice.WebApi.Local": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": false,
+      "launchBrowser": true,
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7130;http://localhost:5130",
       "environmentVariables": {

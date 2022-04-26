@@ -11,8 +11,8 @@ using StockMicroservice.WebApi.Data;
 namespace StockMicroservice.WebApi.Data.Migrations
 {
     [DbContext(typeof(StockDbContext))]
-    [Migration("20220419212424_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220426065609_StockMicroserviceInitialCreate")]
+    partial class StockMicroserviceInitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
