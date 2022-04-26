@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using StateMachine.WorkerService;
 using StateMachine.WorkerService.Data;
 using StateMachine.WorkerService.Data.Enities;
-using StateMachine.WorkerService.Models;
+using StateMachine.WorkerService.Services;
 
 Microsoft.Extensions.Hosting.IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
@@ -16,10 +16,11 @@ Microsoft.Extensions.Hosting.IHost host = Host.CreateDefaultBuilder(args)
 
         services.AddMassTransit(cfgMassTransit =>
         {
-            cfgMassTransit.AddSagaStateMachine<OrderStateMachine, OrderStateInstanceEntity>().EntityFrameworkRepository(opt =>
+            cfgMassTransit.AddSagaStateMachine<OrderStateMachineService, OrderStateInstanceEntity>().EntityFrameworkRepository(opt =>
             {
                 opt.ExistingDbContext<OrderStateDbContext>();
                 opt.LockStatementProvider = new PostgresLockStatementProvider();
+                opt.ConcurrencyMode = ConcurrencyMode.Optimistic;
             });
 
             cfgMassTransit.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(builder =>

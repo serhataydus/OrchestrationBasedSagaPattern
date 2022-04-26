@@ -7,24 +7,23 @@ using MessageBroker.Shared.Messages;
 using MessageBroker.Shared.Models.Payment;
 using StateMachine.WorkerService.Data.Enities;
 
-namespace StateMachine.WorkerService.Models
+namespace StateMachine.WorkerService.Services
 {
-    public class OrderStateMachine : MassTransitStateMachine<OrderStateInstanceEntity>
+    public class OrderStateMachineService : MassTransitStateMachine<OrderStateInstanceEntity>
     {
-        public Event<IOrderCreatedRequestEvent> OrderCreatedRequestEvent { get; set; }
-        public Event<IStockReservedEvent> StockReservedEvent { get; set; }
-        public Event<IStockNotReservedEvent> StockNotReservedEvent { get; set; }
+        public Event<IOrderCreatedRequestEvent> OrderCreatedRequestEvent { get; private set; }
+        public Event<IStockReservedEvent> StockReservedEvent { get; private set; }
+        public Event<IStockNotReservedEvent> StockNotReservedEvent { get; private set; }
+        public Event<IPaymentCompletedEvent> PaymentCompletedEvent { get; private set; }
+        public Event<IPaymentFailedEvent> PaymentFailedEvent { get; private set; }
 
-        public Event<IPaymentCompletedEvent> PaymentCompletedEvent { get; set; }
-
-        public Event<IPaymentFailedEvent> PaymentFailedEvent { get; set; }
         public State OrderCreated { get; private set; }
         public State StockReserved { get; private set; }
         public State StockNotReserved { get; private set; }
         public State PaymentCompleted { get; private set; }
         public State PaymentFailed { get; private set; }
 
-        public OrderStateMachine()
+        public OrderStateMachineService()
         {
             InstanceState(x => x.CurrentState);
 
@@ -77,7 +76,8 @@ namespace StateMachine.WorkerService.Models
                 );
 
             During(StockReserved,
-                When(PaymentCompletedEvent).TransitionTo(PaymentCompleted).Publish(context => new OrderRequestCompletedEvent() { OrderId = context.Instance.OrderId }).Then(context => { Console.WriteLine($"PaymentCompletedEvent After : {context.Instance}"); }).Finalize(),
+                When(PaymentCompletedEvent).TransitionTo(PaymentCompleted).Publish(context => new OrderRequestCompletedEvent() { OrderId = context.Instance.OrderId }).Then(context => { Console.WriteLine($"PaymentCompletedEvent After : {context.Instance}"); })
+                .Finalize(),
                 When(PaymentFailedEvent)
                 .Publish(context => new OrderRequestFailedEvent() { OrderId = context.Instance.OrderId, Reason = context.Data.Reason })
                 .Send(new Uri($"queue:{RabbitMqConstants.StockRollBackMessageQueueName}"), context => new StockRollbackMessage() { OrderItems = context.Data.OrderItems }).TransitionTo(PaymentFailed).Then(context => { Console.WriteLine($"PaymentFailedEvent After : {context.Instance}"); })
