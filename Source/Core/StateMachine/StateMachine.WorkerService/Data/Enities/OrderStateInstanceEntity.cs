@@ -2,7 +2,7 @@
 
 namespace StateMachine.WorkerService.Data.Enities
 {
-    public class OrderStateInstanceEntity : SagaStateMachineInstance 
+    public class OrderStateInstanceEntity : SagaStateMachineInstance
     {
         public Guid CorrelationId { get; set; }
         public string CurrentState { get; set; }
